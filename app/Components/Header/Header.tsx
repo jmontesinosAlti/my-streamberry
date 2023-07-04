@@ -4,17 +4,29 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Movies', href: '#', current: true },
-  { name: 'TV shows', href: '#', current: false },
-  { name: 'People', href: '#', current: false },
-  { name: 'More', href: '#', current: false },
+  { name: 'Popular', category: 'popular', current: true },
+  { name: 'Top Rated', category: 'top_rated', current: false },
+  { name: 'Upcoming', category: 'upcoming', current: false },
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header() {
+export default function Header({ onChangeCategory }) {
+
+
+  const updateNavigation = (category: any) => {
+
+    onChangeCategory(category.category)
+
+    navigation.forEach(navigationItem => {
+      navigationItem.current = navigationItem.name === category.name ? true : false
+    });
+
+  }
+
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -50,7 +62,15 @@ export default function Header() {
                     {navigation.map((item) => (
                       <a
                         key={item.name}
-                        href={item.href}
+                        onClick={() =>
+                          updateNavigation(item)
+
+
+
+
+
+
+                        }
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -140,7 +160,8 @@ export default function Header() {
             </div>
           </Disclosure.Panel>
         </>
-      )}
-    </Disclosure>
+      )
+      }
+    </Disclosure >
   )
 }

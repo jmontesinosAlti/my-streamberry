@@ -5,14 +5,9 @@ export default function MovieComponent({ movie, genres }: { movie: Movie, genres
 
   const image = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
 
-  let mapedGenres: string[] = [];
-
-  console.log('generos >>>>>', genres);
+  const  mapedGenres: string[] = [];
 
   if (genres && genres.length > 0) {
-
-
-
 
     movie.genre_ids?.forEach((genre) => {
 
@@ -21,13 +16,8 @@ export default function MovieComponent({ movie, genres }: { movie: Movie, genres
       if (genreValue && genreValue.name) {
         mapedGenres.push(genreValue.name)
       }
-
-
-
     });
   }
-
-
 
 
   return (
@@ -44,8 +34,8 @@ export default function MovieComponent({ movie, genres }: { movie: Movie, genres
         </div>
         <div className="px-6 pt-4 pb-2">
 
-          {mapedGenres?.map((genre) => (
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{genre}</span>
+          {mapedGenres?.map((genre,index) => (
+            <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{genre}</span>
           ))}
 
 
